@@ -10,8 +10,6 @@
         "functional": "cpp",
         "string_view": "cpp",
         "ratio": "cpp",
-        "streambuf": "cpp",
-        "qradiobutton": "cpp",
-        "new": "cpp"
+        "streambuf": "cpp"
     }
 }

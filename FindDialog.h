@@ -21,7 +21,7 @@ private slots:
     void findWhole();           // presses the 'findWord' radio button
     void findBack();                // presses the 'findBackward' radio button
     void findCase();                // presses the 'findCase...' radio button
-    
+
 
 public:
     TweeFindDialog(QPlainTextEdit *textEdit, QWidget *parent = nullptr);
@@ -39,6 +39,6 @@ private:
     QRadioButton *findForward;
     QRadioButton *findBackward;
     QRadioButton *findCaseSensitively;
-    
-    QTextDocument::FindFlags findWay=FIND_INCASESENTIVILY;
+
+    QTextDocument::FindFlags findWay = FIND_INCASESENTIVILY;
 };

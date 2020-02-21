@@ -21,6 +21,7 @@ SOURCES += \
     FindDialog.cpp
 
 HEADERS += \
+    ExitWindow.h \
     mainwindow.h\
     FindDialog.h
 

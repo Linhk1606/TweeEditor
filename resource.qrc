@@ -3,13 +3,14 @@
         <file>ico/copy.png</file>
         <file>ico/cut.png</file>
         <file>ico/document.png</file>
-        <file>ico/icon.png</file>
         <file>ico/new.png</file>
         <file>ico/open.png</file>
         <file>ico/paste.png</file>
         <file>ico/save.png</file>
         <file>ico/TweeEditor.jpg</file>
         <file>ico/Qt.jpg</file>
-        <file>ico/closeTab.jpg</file>
+        <file>ico/closeTab.png</file>
+        <file>ico/exit.jpg</file>
+        <file>ico/find.png</file>
     </qresource>
 </RCC>

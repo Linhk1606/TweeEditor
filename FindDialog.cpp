@@ -34,7 +34,6 @@ TweeFindDialog::TweeFindDialog(QPlainTextEdit *textEdit, QWidget *parent) : QDia
     findIncaseSensitively->setChecked(true);
 
     // that's because find forward is default option
-    findForward->setEnabled(false);
     findForward->setChecked(true);
 
     currentTextEdit = textEdit;
@@ -79,6 +78,7 @@ void TweeFindDialog::findEnteredText()
 void TweeFindDialog::findIncase()
 {
     findWay = FIND_INCASESENTIVILY;
+    findIncaseSensitively->setChecked(true);
     findForward->setChecked(true);
 }
 

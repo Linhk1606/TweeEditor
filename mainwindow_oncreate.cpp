@@ -27,9 +27,9 @@ void MainWindow::createActions()
     open = new QAction(QIcon(":/ico/open.png"), tr("Open"));
     save = new QAction(QIcon(":/ico/save.png"), tr("Save"));
     saveAs = new QAction(QIcon(":/ico/save.png"), tr("Save As"));
-    closeTab = new QAction(QIcon(":/ico/closeTab.jpg"), tr("Close"));
-    exitApp = new QAction(tr("Exit"));
-    findText=new QAction(tr("Find"));
+    closeTab = new QAction(QIcon(":/ico/closeTab.png"), tr("Close"));
+    exitApp = new QAction(QIcon(":/ico/exit.jpg"), tr("Exit"));
+    findText=new QAction(QIcon(":/ico/find.png"), tr("Find"));
     aboutQtAction = new QAction(QIcon(":/ico/Qt.jpg"), tr("About Qt"));
     aboutThisAppAction = new QAction(QIcon(":/ico/TweeEditor.jpg"), tr("About TweeEditor"));
 
@@ -139,7 +139,12 @@ void MainWindow::createContextMenu()
 void MainWindow::createTextEdit()
 {
     // sets up
+    QString tabBarStyle = "QTabBar::tab {min-width:100px;color: black;font:10pt 'Microsoft Yahei UI';border: 0px solid;padding:5px;}\
+    QTabBar::tab:!selected {color: black;margin-top: 7px;} \
+    QTabBar::tab:selected {background-color:blue;color: white;}";
     tabWidget = new QTabWidget;
+    tabWidget->setTabsClosable(true);
+    tabWidget->setStyleSheet(tabBarStyle);
 
     document.resize(1);
     document.clear();
@@ -147,4 +152,5 @@ void MainWindow::createTextEdit()
     // adds QPlainText to QTabWidget
     setCentralWidget(tabWidget);
     connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(getCurrentPage()));
+    connect(tabWidget,SIGNAL(tabCloseRequested(int)),this,SLOT(closeDocument2(int)));
 }

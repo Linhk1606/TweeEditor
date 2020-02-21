@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QTextStream>
+#include <QCloseEvent>
 #include <QDebug>
 
 #include "mainwindow.h"
@@ -36,6 +37,7 @@ void MainWindow::newDocument(const QString &text, const QString &title, const QS
         return;
     }
     totalText++;
+    countText++;
 
     document.push_back(Document());
 
@@ -43,8 +45,13 @@ void MainWindow::newDocument(const QString &text, const QString &title, const QS
     document.back().textPath = textPath;
     if (!textPath.isEmpty())
         document.back().bFirstCreate = false;
-
-    tabWidget->addTab(document.back().textEdit, QIcon(":/ico/document.png"), title);
+    if (title == untitledFile)
+    {
+        QString tit = QString("%1-%2").arg(title).arg(countText);
+        tabWidget->addTab(document.back().textEdit, QIcon(":/ico/document.png"), tit);
+    }
+    else
+        tabWidget->addTab(document.back().textEdit, QIcon(":/ico/document.png"), title);
     tabWidget->update();
     tabWidget->setCurrentWidget(document.back().textEdit);
 
@@ -80,7 +87,6 @@ retry:
     newDocument(text, info.fileName(), path);
 }
 
-// 'edit'
 void MainWindow::findTextDialog()
 {
     findDialog = new TweeFindDialog(document[currentText].textEdit, this);
@@ -96,7 +102,11 @@ void MainWindow::aboutQt()
 
 void MainWindow::aboutThisApp()
 {
-    const QString introduce = "This program is an open-source application.\nMade by TweeChalice.";
+    const QString introduce =
+    "<h2>TweeEditor</h2> \n\
+    A simple text editor made by Qt 5.\n\
+    This program is an open-source application.\n\
+    Developed by <a href=\"https:\/\/github.com\/TweeChalice\">TweeChalice</a>.\n";
     QMessageBox *messageBox = new QMessageBox;
     messageBox->setIcon(QMessageBox::Icon::Information);
     messageBox->setText(introduce);
@@ -159,9 +169,14 @@ void MainWindow::closeDocument()
         save->setEnabled(false);
         saveAs->setEnabled(false);
         closeTab->setEnabled(false);
-
         findText->setEnabled(false);
     }
+}
+
+void MainWindow::closeDocument2(int index)
+{
+     delete tabWidget->widget(index);
+//    QMessageBox::warning(NULL, "TweeEdit", "Sorry, I don't know how to\ndeal with it yet.\n\t--Linhk1606", QMessageBox::Ok);
 }
 
 void MainWindow::saveAsDocument()

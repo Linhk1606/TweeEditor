@@ -3,8 +3,12 @@
 
 #include <QMainWindow>
 #include <QPlainTextEdit>
+#include <QMessageBox>
 #include <QVector>
+#include <QCloseEvent>
 #include "FindDialog.h"
+
+#define untitledFile "untitled"
 
 constexpr int MAX_QPLAINTEXT = 11;
 
@@ -13,9 +17,10 @@ struct Document
 {
     QPlainTextEdit *textEdit;
     bool bFirstCreate = true; // creates the document for the first time
+    bool isSaved = true;
     QString textPath;
 
-    Document(QPlainTextEdit *widget = new QPlainTextEdit, const QString path = "", const bool first = true) : textEdit(widget), textPath(path), bFirstCreate(first) {}
+    Document(QPlainTextEdit *widget = new QPlainTextEdit, const QString path = "", const bool first = true, const bool save = true) : textEdit(widget), textPath(path), bFirstCreate(first), isSaved(save) {}
 };
 
 class QMenuBar;
@@ -39,15 +44,19 @@ private:
     void createTextEdit();    // creates the text editor window
     void createContextMenu(); // creates context menu
 
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
 private slots:
 
     // 'file' slots
     void getCurrentPage();                                                                                           // gets current QPlainText
-    void newDocument(const QString &text = "", const QString &title = "untitled.txt", const QString &textPath = ""); // displays a new text documnet
+    void newDocument(const QString &text = "", const QString &title = untitledFile, const QString &textPath = ""); // displays a new text documnet
     void openDocument();                                                                                             // opens a text documnet
     void saveDocument();                                                                                             // saves the text document
     void saveAsDocument();                                                                                           // the dialog of 'Save As'
-    void closeDocument();                                                                                            // closes current tab
+    void closeDocument();  // closes current tab
+    void closeDocument2(int index);
 
     // 'edit' slots
     void findTextDialog();
@@ -82,6 +91,9 @@ private:
     TweeFindDialog* findDialog;
 
     int currentText = 0;
+    int countText = 0;
     int totalText = 0; // records the number of QPlainText created
 };
+
+
 #endif // MAINWINDOW_H
